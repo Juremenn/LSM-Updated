@@ -13,7 +13,6 @@ use App\Http\Controllers\SchoolProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentWorkController;
 use App\Http\Controllers\VisionMissionController;
-use App\Models\News;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,15 +21,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('/', function () {
-    $latestNews = News::with('author')
-        ->whereNotNull('published_at')
-        ->where('published_at', '<=', now())
-        ->orderByDesc('published_at')
-        ->orderByDesc('id')
-        ->take(4)
-        ->get();
-
-    return view('welcome', compact('latestNews'));
+    return view('welcome');
 });
 
 Route::get('/visi-misi', [VisionMissionController::class, 'publicIndex'])->name('vision-mission');

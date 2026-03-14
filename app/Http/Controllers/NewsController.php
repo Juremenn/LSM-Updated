@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateNewsRequest;
 use App\Models\News;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
@@ -126,7 +127,7 @@ class NewsController extends Controller
     public function store(StoreNewsRequest $request)
     {
         $validated = $request->validated();
-        $saveAction = $validated['save_action'];
+        $saveAction = $validated['save_action'] ?? 'publish';
         unset($validated['save_action']);
 
         // Handle image upload
@@ -135,10 +136,11 @@ class NewsController extends Controller
             $validated['image'] = $path;
         }
 
-        $validated['author_id'] = auth()->id();
+        $validated['author_id'] = Auth::id();
         if ($saveAction === 'draft') {
             $validated['published_at'] = null;
-        } elseif (empty($validated['published_at'])) {
+        } else {
+            // Always publish immediately when Publish button is clicked.
             $validated['published_at'] = now();
         }
 
@@ -174,7 +176,7 @@ class NewsController extends Controller
     public function update(UpdateNewsRequest $request, News $news)
     {
         $validated = $request->validated();
-        $saveAction = $validated['save_action'];
+        $saveAction = $validated['save_action'] ?? 'publish';
         unset($validated['save_action']);
 
         // Handle image upload
@@ -189,7 +191,8 @@ class NewsController extends Controller
 
         if ($saveAction === 'draft') {
             $validated['published_at'] = null;
-        } elseif (empty($validated['published_at'])) {
+        } else {
+            // Always publish immediately when Publish button is clicked.
             $validated['published_at'] = now();
         }
 
