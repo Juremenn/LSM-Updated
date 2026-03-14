@@ -1,0 +1,53 @@
+:root {
+    --scrollbar-size: 12px;
+    --scrollbar-track: linear-gradient(180deg, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.14));
+    --scrollbar-thumb: linear-gradient(180deg, #46cbcb 0%, #2aa5a5 55%, #1d8080 100%);
+    --scrollbar-thumb-hover: linear-gradient(180deg, #58d2d2 0%, #2fb0b0 55%, #238f8f 100%);
+    --scrollbar-thumb-border: rgba(255, 255, 255, 0.78);
+}
+
+html {
+    scrollbar-gutter: stable;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #2aa5a5 rgba(15, 23, 42, 0.14);
+}
+
+*::-webkit-scrollbar {
+    width: var(--scrollbar-size);
+    height: var(--scrollbar-size);
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+    border: 3px solid var(--scrollbar-thumb-border);
+    background-clip: padding-box;
+    box-shadow: inset 0 0 0 1px rgba(8, 62, 62, 0.28);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+*::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --scrollbar-track: linear-gradient(180deg, rgba(15, 23, 42, 0.34), rgba(15, 23, 42, 0.5));
+        --scrollbar-thumb-border: rgba(3, 9, 20, 0.82);
+    }
+
+    * {
+        scrollbar-color: #39bcbc rgba(15, 23, 42, 0.46);
+    }
+}
