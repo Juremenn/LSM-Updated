@@ -2087,7 +2087,7 @@ body > nav ul li.nav-mobile-only {
 
 .news-detail-hero {
     margin: 0 calc(50% - 50vw);
-    padding: 48px 16px 34px;
+    padding: 112px 16px 34px;
     border-bottom: 1px solid #cfd3dc;
     background: #d8dbe4;
 }
@@ -2861,7 +2861,7 @@ body > nav ul li.nav-mobile-only {
     }
 
     .news-detail-hero {
-        padding: 36px 14px 24px;
+        padding: 86px 14px 24px;
     }
 
     .news-detail-hero h1 {

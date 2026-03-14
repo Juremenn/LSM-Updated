@@ -47,14 +47,19 @@ class News extends Model
             return asset('img/hero2.JPG');
         }
 
-        $relativeImagePath = ltrim($this->image, '/');
-        $publicImagePath = public_path('storage/' . $relativeImagePath);
+        $imagePath = trim((string) $this->image);
 
-        if (is_file($publicImagePath)) {
-            return asset('storage/' . $relativeImagePath);
+        // If a full URL is stored, use it directly.
+        if (Str::startsWith($imagePath, ['http://', 'https://'])) {
+            return $imagePath;
         }
 
-        return asset('img/hero2.JPG');
+        // If stored as /storage/... path, keep it as-is.
+        if (Str::startsWith($imagePath, '/storage/')) {
+            return asset(ltrim($imagePath, '/'));
+        }
+
+        return asset('storage/' . ltrim($imagePath, '/'));
     }
 
     public function scopePublished(Builder $query): Builder
